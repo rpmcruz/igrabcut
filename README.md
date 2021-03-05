@@ -5,7 +5,11 @@ The code is less than 100 lines. It is a little tool that combines the GrabCut a
 
 ![Animated screenshot](screenshot.gif)
 
+Usage: Download and run `python main.py`.
+
+Limitations: The tool was developed for a specific application where the images are grayscale and there is only one object to segment. You need to adjust accordingly.
+
 Credits:
-* Ricardo Cruz &lt;ricardo.pdm.cruz@gmail.com&gt;
-* The GrabCut algorithm comes from OpenCV
-* The Matplotlib line selector comes from [Steven Silvester](https://gist.github.com/blink1073)
+* Ricardo Cruz &lt;ricardo.pdm.cruz@gmail.com&gt;.
+* The GrabCut algorithm comes from OpenCV.
+* The Matplotlib line selector comes from [Steven Silvester](https://gist.github.com/blink1073).
