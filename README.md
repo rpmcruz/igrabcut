@@ -6,6 +6,6 @@ The code is less than 100 lines. It is a little tool that combines the GrabCut a
 ![Animated screenshot](screenshot.gif)
 
 Credits:
-* Ricardo Cruz <ricardo.pdm.cruz@gmail.com>
+* Ricardo Cruz &lt;ricardo.pdm.cruz@gmail.com&bt;
 * The GrabCut algorithm comes from OpenCV
 * The Matplotlib line selector comes from [Steven Silvester](https://gist.github.com/blink1073)
