@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 from selection_widgets import RectangleSelector, LineSelector
 import numpy as np
 import cv2
-from skimage import draw, color, io
+from skimage import draw, color, io, morphology
 from tkinter import Tk
 from tkinter.filedialog import askopenfilenames
 
@@ -28,6 +28,15 @@ def ChooseRectangle(image, fname):
 
 def DrawSegmentation(image, fname):
     mask = np.full(image.shape[:2], cv2.GC_PR_BGD, np.uint8)
+
+    def draw_mask():
+        seg = np.logical_or(mask == cv2.GC_FGD, mask == cv2.GC_PR_FGD)
+        img = image.copy()
+        if np.any(seg):
+            img[seg, 0] = 255
+            img[np.logical_not(seg), 2] = 255
+        obj.set_data(img)
+        plt.draw()
     def onselect(geometry, button):
         nonlocal mask
         initial_point, end_point = geometry
@@ -37,14 +46,15 @@ def DrawSegmentation(image, fname):
         bgModel = np.zeros((1,65), np.float64)
         fgModel = np.zeros((1,65), np.float64)
         mask, _, _ = cv2.grabCut(image, mask, None, bgModel, fgModel, 5, cv2.GC_INIT_WITH_MASK)
-        seg = np.logical_or(mask == cv2.GC_FGD, mask == cv2.GC_PR_FGD)
-        img = image.copy()
-        if np.any(seg):
-            img[seg, 0] = 255
-            img[np.logical_not(seg), 2] = 255
-        obj.set_data(img)
-        plt.draw()
+        draw_mask()
     def key_pressed(ev):
+        if ev.key in ('+', '-'):
+            flag1 = cv2.GC_FGD if ev.key == '+' else cv2.GC_BGD
+            flag2 = cv2.GC_PR_FGD if ev.key == '+' else cv2.GC_PR_BGD
+            seg = np.logical_or(mask == flag1, mask == flag2)
+            seg = morphology.binary_dilation(seg)
+            mask[seg] = flag1
+            draw_mask()
         if ev.key in ('enter', 'escape'):
             plt.close()
 
