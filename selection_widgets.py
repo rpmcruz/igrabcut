@@ -158,7 +158,8 @@ class SelectionWidget(AxesWidget):
         Use this to activate / deactivate the Selector
         from your program with an boolean parameter *active*.
         """
-        self.active = active
+        if self.active != active:
+            self.active = active
 
     def get_active(self):
         """ Get status of active mode (boolean variable)"""
