@@ -62,7 +62,7 @@ def DrawSegmentation(image, fname):
     rs1 = LineSelector(plt.gca(), lambda g: onselect(g, 1), 'line', button=1, maxdist=5, line_props={'color': 'red', 'alpha': 1})
     rs2 = LineSelector(plt.gca(), lambda g: onselect(g, 3), 'line', button=3, maxdist=5, line_props={'color': 'blue', 'alpha': 1})
     plt.gcf().canvas.mpl_connect('key_press_event', key_pressed)
-    plt.title('Foreground (left-click), Background (right-click)')
+    plt.title('Foreground (left-click), Background (right-click), +/- (dilation/erosion)')
     plt.suptitle(fname)
     plt.get_current_fig_manager().window.showMaximized()
     plt.show()
@@ -71,10 +71,11 @@ def DrawSegmentation(image, fname):
 Tk().withdraw()
 filenames = askopenfilenames()
 
-for fname in filenames:
+for i, fname in enumerate(filenames):
     image = color.gray2rgb(io.imread(fname, True))
-    rect = ChooseRectangle(image, fname)
-    seg = DrawSegmentation(image[rect[2]:rect[3], rect[0]:rect[1]], fname)
+    title = f'{fname} {i+1}/{len(filenames)}'
+    rect = ChooseRectangle(image, title)
+    seg = DrawSegmentation(image[rect[2]:rect[3], rect[0]:rect[1]], title)
 
     mask = np.zeros(image.shape[:2], np.uint8)
     mask[rect[2]:rect[3], rect[0]:rect[1]] = seg*255
