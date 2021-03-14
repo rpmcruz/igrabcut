@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import matplotlib.pyplot as plt
 from selection_widgets import RectangleSelector, LineSelector
 import numpy as np
