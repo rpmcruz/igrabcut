@@ -81,4 +81,4 @@ for i, fname in enumerate(filenames):
 
     mask = np.zeros(image.shape[:2], np.uint8)
     mask[rect[2]:rect[3], rect[0]:rect[1]] = seg*255
-    io.imsave(fname[:-4] + '-seg.png', mask, check_contrast=False)
+    io.imsave(fname[:-4] + '_seg.png', mask, check_contrast=False)
