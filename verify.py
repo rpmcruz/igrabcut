@@ -12,7 +12,7 @@ from skimage import color, io
 import math
 import os
 
-seg_filenames = [os.path.join(args.dirname, f) for f in sorted(os.listdir(args.dirname)) if f.endswith('-seg.png')]
+seg_filenames = [os.path.join(args.dirname, f) for f in sorted(os.listdir(args.dirname)) if f.endswith('_seg.png')]
 
 def key_pressed(ev):
     if ev.key in ('enter', 'escape'):
